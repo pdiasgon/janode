@@ -795,9 +795,10 @@ class VideoRoomHandle extends Handle {
    * @param {number} [params.sc_temporal_layers] - Temporal layers to receive (0-2), in case VP8 simulcasting is enabled
    * @param {boolean} [params.autoupdate] - [multistream] Whether a new SDP offer is sent automatically when a subscribed publisher leaves
    * @param {string} [params.token] - The optional token needed
+   * @param {string} [params.pin] - The optional pin needed to join the room
    * @returns {Promise<module:videoroom-plugin~VIDEOROOM_EVENT_SUB_JOINED>}
    */
-  async joinSubscriber({ room, feed, audio, video, data, private_id, sc_substream_layer, sc_substream_fallback_ms, sc_temporal_layers, autoupdate, token }) {
+  async joinSubscriber({ room, feed, audio, video, data, private_id, sc_substream_layer, sc_substream_fallback_ms, sc_temporal_layers, autoupdate, token, pin }) {
     const body = {
       request: REQUEST_JOIN,
       ptype: PTYPE_LISTENER,
@@ -809,6 +810,7 @@ class VideoRoomHandle extends Handle {
     if (typeof data === 'boolean') body.data = data;
     if (typeof private_id === 'number') body.private_id = private_id;
     if (typeof token === 'string') body.token = token;
+    if (typeof pin === 'string') body.pin = pin;
     if (typeof sc_substream_layer === 'number') body.substream = sc_substream_layer;
     if (typeof sc_substream_fallback_ms === 'number') body.fallback = 1000 * sc_substream_fallback_ms;
     if (typeof sc_temporal_layers === 'number') body.temporal = sc_temporal_layers;
